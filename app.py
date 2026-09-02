@@ -53,7 +53,7 @@ def u2():
     
 
     filename = f"{uuid.uuid4()}.png"
-    filepath = os.path.join("javascript/static", filename)
+    filepath = os.path.join("static", filename)
 
     ui = sp.sympify(ui)
     ui2 = sp.sympify(ui2)
