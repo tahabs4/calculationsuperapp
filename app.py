@@ -50,10 +50,13 @@ def u2():
     ui = sp.parse_expr(ui, transformations=transformations)
     ui2 = sp.parse_expr(ui2, transformations=transformations)       
     ui3 = sp.parse_expr(ui3, transformations=transformations)
+
+    static_dir = os.path.join(app.root_path, "static")
+    os.makedirs(static_dir, exist_ok=True)
     
 
     filename = f"{uuid.uuid4()}.png"
-    filepath = os.path.join("static", filename)
+    filepath = os.path.join(static_dir, filename)
 
     ui = sp.sympify(ui)
     ui2 = sp.sympify(ui2)
@@ -87,8 +90,11 @@ def u1():
     number4 = str(data["number4"])
     number5 = str(data["number5"])
 
+    static_dir = os.path.join(app.root_path, "static")
+    os.makedirs(static_dir, exist_ok=True)
+
     filename = f"{uuid.uuid4()}.png"
-    filepath = os.path.join("=static", filename)
+    filepath = os.path.join(static_dir, filename)
 
     ui = number4.replace("^", "**")
     ui2 = number5.replace("^", "**")
