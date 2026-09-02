@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سوپر اپلیکیشن محاسبات</title>
+
+    <style>
+        @font-face {
+            font-family: "IRANSans";
+            src: local("IRANSans"), local("IRANSansWeb");
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: "IRANSans", Tahoma, Arial, sans-serif;
+            background: linear-gradient(135deg, #e9fffb, #f5fffd);
+            color: #173c3a;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: min(900px, 92%);
+            margin: 45px auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            margin: 0 0 10px;
+            color: #087f73;
+            font-size: 34px;
+        }
+
+        .header p {
+            margin: 0;
+            color: #5d7774;
+            font-size: 15px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.94);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 12px 35px rgba(0, 128, 116, 0.12);
+            border: 1px solid #d8f1ed;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .tab {
+            flex: 1;
+            min-width: 170px;
+            padding: 14px 18px;
+            border: none;
+            border-radius: 12px;
+            background: #e1f4f1;
+            color: #17645e;
+            font-family: inherit;
+            font-size: 15px;
+            cursor: pointer;
+            transition: 0.25s ease;
+        }
+
+        .tab:hover {
+            background: #0aa897;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .tab.active {
+            background: #078f82;
+            color: white;
+            box-shadow: 0 5px 15px rgba(7, 143, 130, 0.25);
+        }
+
+        .content {
+            display: none;
+        }
+
+        .content.active {
+            display: block;
+            animation: fadeIn 0.35s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .photo {
+            width: 100%;
+            height: auto;
+        }
+
+        .content h2 {
+            color: #087f73;
+            margin-top: 0;
+        }
+
+        .description {
+            color: #687f7c;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+
+        .input-group {
+            margin-bottom: 17px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #315a56;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #c9e5e1;
+            border-radius: 11px;
+            outline: none;
+            font-family: inherit;
+            font-size: 14px;
+            transition: 0.2s;
+            background: #fbfffe;
+        }
+
+        input:focus {
+            border-color: #0aa897;
+            box-shadow: 0 0 0 3px rgba(10, 168, 151, 0.12);
+        }
+
+        .calculate {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 11px;
+            background: #078f82;
+            color: white;
+            font-family: inherit;
+            font-size: 15px;
+            cursor: pointer;
+            transition: 0.25s;
+            margin-top: 5px;
+        }
+
+        .calculate:hover {
+            background: #056f66;
+            transform: translateY(-1px);
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background: #e9faf7;
+            border: 1px solid #ccece7;
+            border-radius: 11px;
+            color: #17645e;
+            display: none;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 65px 20px;
+            color: #78918e;
+        }
+
+        .help {
+            text-align: right;
+            color: #78918e;
+            font-size: 13px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 28px;
+            padding: 20px;
+            color: #78918e;
+            font-size: 13px;
+        }
+
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 27px;
+            }
+
+            .card {
+                padding: 18px;
+            }
+
+            .tab {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <header class="header">
+        <h1>سوپر اپلیکیشن محاسبات</h1>
+        <p>یک ماشین حساب متفاوت!</p>
+    </header>
+
+    <div class="card">
+
+        <div class="tabs">
+            <button class="tab active" onclick="openTab('squareTwo', this)">
+                اتحاد مربع دو جمله‌ای
+            </button>
+
+            <button class="tab" onclick="openTab('squareThree', this)">
+                اتحاد مربع سه جمله‌ای
+            </button>
+
+            <button class="tab" onclick="openTab('more', this)">
+                دیگر کاربرد ها
+            </button>
+            <button class="tab" onclick="openTab('finder', this)">
+                اتحاد یاب
+            </button>
+        </div>
+
+        <section id="squareTwo" class="content active">
+            <h2>اتحاد مربع دو جمله‌ای</h2>
+
+            <!--p class="description">
+                دو جمله را وارد کنید تا نتیجه اتحاد مربع دو جمله‌ای محاسبه شود.
+            </p--->
+
+            <div class="input-group">
+                <label for="first">جمله اول را وارد کنید</label>
+                <input id="number4" type="text" placeholder="مثلاً x + 2">
+            </div>
+
+            <div class="input-group">
+                <label for="second">جمله دوم را وارد کنید</label>
+                <input id="number5" type="text" placeholder="مثلاً 3">
+            </div>
+            <div class="help">
+                <p>برای توان از ^ استفاده کنید.</p>
+            </div>
+
+            <button class="calculate" onclick="b1()">
+                محاسبه کن
+            </button>
+            <div id="rea2" class="result"></div>
+        </section>
+
+        <section id="squareThree" class="content">
+            <div class="label">
+                <h2>اتحاد مربع سه جمله ای</h2>
+            </div>
+            <div class="input-group">
+                <label>جمله اول را وارد کنید</label>
+                <input id="number1" type="text" placeholder="مثلا x">
+            </div>
+            <div class="input-group">
+                <label>جمله دوم را وارد کنید</label>
+                <input id="number2" type="text" placeholder="مثلا y">
+            </div>
+            <div class="input-group">
+                <label>جمله سوم را وارد کنید</label>
+                <input id="number3" type="text" placeholder="مثلا z">
+            </div>
+            <div class="help">
+                <p>برای توان از ^ استفاده کنید</p>
+            </div>
+            <button class="calculate" onclick="b2()">محاسبه کن</button>
+            <div id="rea" class="result"></div>
+
+        </section>
+
+        <section id="more" class="content">
+            <div class="empty">
+                <h2>دیگر کاربرد ها</h2>
+                <p>این بخش بزودی فعال می شود</p>
+            </div>
+        </section>
+        <section id="finder" class="content">
+            <div class="empty">
+                <h2>
+                    اتحاد یاب
+                </h2>
+                <p>این بخش بزودی فعال می شود</p>
+            </div>
+        </section>
+
+
+
+    </div>
+
+    <footer>
+        Version 3.0.1
+        <br>
+        © ۱۴۰۵ — تمامی حقوق محفوظ است.
+        <br>
+        ظراحی و توسعه توسط طاها بهشتی
+    </footer>
+
+</div>
+
+<script>
+    async function b1() {
+    const number4 = document.getElementById("number4").value;
+    const number5 = document.getElementById("number5").value;
+
+        
+    const response = await fetch("/u1", {
+        method: "POST",
+
+        headers: {
+            "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify({
+            number4: number4,
+            number5: number5
+        })
+    });
+
+    const data = await response.json();
+
+    if(data.success) {
+            rea2.innerHTML = `
+            <img class=photo src=${data.image}>`
+        rea2.style.display = "block";
+
+    }
+    }
+
+
+    function openTab(tabId, button) {
+        document.querySelectorAll(".content").forEach(content => {
+            content.classList.remove("active");
+        });
+
+        document.querySelectorAll(".tab").forEach(tab => {
+            tab.classList.remove("active");
+        });
+
+        document.getElementById(tabId).classList.add("active");
+        button.classList.add("active");
+    }
+async function b2() {
+    const number1 = document.getElementById("number1").value;
+    const number2 = document.getElementById("number2").value;
+    const number3 = document.getElementById("number3").value;
+
+
+    const response = await fetch("/u2", {
+        method: "POST",
+
+        headers: {
+            "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify({
+            number1: number1,
+            number2: number2,
+            number3: number3
+        })
+    });
+
+    const data = await response.json();
+
+    if (data.success) {
+        rea.innerHTML = `
+            <img class="photo" src="${data.image}">
+        `;
+
+        rea.style.display = "block";
+    }
+}
+
+
+
+
+
+</script>
+
+</body>
+</html>
