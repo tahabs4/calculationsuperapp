@@ -1,7 +1,6 @@
 Flask 
 matplotlib
 uuid
-os
 time
 threading
 sympy
