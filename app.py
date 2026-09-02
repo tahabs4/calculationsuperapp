@@ -88,7 +88,7 @@ def u1():
     number5 = str(data["number5"])
 
     filename = f"{uuid.uuid4()}.png"
-    filepath = os.path.join("javascript/static", filename)
+    filepath = os.path.join("=static", filename)
 
     ui = number4.replace("^", "**")
     ui2 = number5.replace("^", "**")
